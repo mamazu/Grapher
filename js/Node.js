@@ -11,9 +11,21 @@ function Node(x, y, text, priority) {
 		this.priority = priority;
 }
 
+Node.prototype.getColor = function() {
+	switch (this.priority) {
+		case CRUCIAL:
+			return color(255, 0, 0);
+		case NICE_TO_HAVE:
+			return color(255, 255, 0);
+		case OPTIONAL:
+			return color(0, 255, 0);
+		default:
+			return color(255);
+	}
+};
+
 Node.prototype.show = function() {
-	rectColor = lerpColor(color(255, 0, 0), color(0, 255, 0), this.priority);
-	fill(rectColor);
+	fill(this.getColor());
 	rect(this.pos.x, this.pos.y, textWidth(text), -16);
 	textAlign(LEFT, BOTTOM);
 	fill(0);
