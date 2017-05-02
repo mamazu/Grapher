@@ -30,7 +30,7 @@ Node.prototype.getColor = function() {
 		default:
 			return color(255);
 	}
-};
+}
 
 Node.prototype.show = function() {
 	fill(this.getColor());
@@ -38,4 +38,4 @@ Node.prototype.show = function() {
 	textAlign(LEFT, BOTTOM);
 	fill(0);
 	text(this.text, this.pos.x + 5, this.pos.y);
-};
+}
