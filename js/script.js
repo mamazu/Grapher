@@ -1,7 +1,7 @@
 nodes = []
 edges = []
 
-function shower(element, index, array) {
+function shower(element) {
 	element.show();
 }
 
@@ -9,14 +9,29 @@ function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	nodes.push(new Node(200, 200, "This is sparta"));
 	nodes.push(new Node(400, 400, "This is brocolli"));
-	edges.push(new Edge(nodes[0], nodes[1]));
+	nodes.push(new Node(400, 200, "Long text incoming: this can be expanded somehow", 3));
+	edges.push(new Edge(nodes[1], nodes[2], "A"));
+	edges.push(new Edge(nodes[0], nodes[1], "B"));
+	edges.push(new Edge(nodes[0], nodes[2], "C"));
 }
 
 function draw() {
 	background(240);
-	edges.forEach(shower);
+	edges.forEach(function(element) {
+		element.adapt();
+		shower(element);
+	});
 	nodes.forEach(shower);
 	noLoop();
+}
+
+function mouseClicked() {
+	console.log(mouseX, mouseY)
+	nodes.forEach(function(node) {
+		if (node.pos.x <= mouseX && node.pos.x + node.getWidth() >= mouseX)
+			if (node.pos.y >= mouseY && node.pos.y - node.getHeight() <= mouseY)
+				node.contextMenu(mouseX, mouseY);
+	});
 }
 
 function windowRezised() {
