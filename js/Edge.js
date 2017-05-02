@@ -6,21 +6,26 @@ function Edge(from, to){
 }
 
 Edge.prototype.show = function() {
-	function drawingTheTrianlge(anchor){
+	function drawingTheTrianlge(anchor, angle){
 		fill(0);
 		// Moving the triangle
 		push();
-		translate(anchor.x, anchor.y)
-		triangle(0, 0, 10, 10, 20, 0);
+		translate(anchor.x - 10, anchor.y - 10);
+		rotate(angle - HALF_PI);
+		triangle(-10, 0, 0, 10, 10, 0);
 		pop();
 	}
 
 	// Drawing the text
 	if(text != undefined){
 		textAlign(CENTER, BOTTOM);
-		text(this.text, this.textPos.x, this.textPos.y);
+		push();
+		translate(this.textPos.x, this.textPos.y)
+		rotate(this.textPos.heading());
+		text(this.text, 0, 0);
+		pop();
 	}
 	//Drawing the line and the direction
 	line(this.from.pos.x, this.from.pos.y, this.to.pos.x, this.to.pos.y);
-	drawingTheTrianlge(this.to.pos);
+	drawingTheTrianlge(this.to.pos, this.textPos.heading());
 };
