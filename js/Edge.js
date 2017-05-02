@@ -1,4 +1,4 @@
-function Edge(from, to){
+function Edge(from, to) {
 	this.from = from;
 	this.to = to;
 	this.text = "hello";
@@ -6,7 +6,7 @@ function Edge(from, to){
 }
 
 Edge.prototype.show = function() {
-	function drawingTheTrianlge(anchor, angle){
+	function drawingTheTrianlge(anchor, angle) {
 		fill(0);
 		// Moving the triangle
 		push();
@@ -17,7 +17,7 @@ Edge.prototype.show = function() {
 	}
 
 	// Drawing the text
-	if(text != undefined){
+	if (text != undefined) {
 		textAlign(CENTER, BOTTOM);
 		push();
 		translate(this.textPos.x, this.textPos.y)

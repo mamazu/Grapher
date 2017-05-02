@@ -1,23 +1,24 @@
 nodes = []
 edges = []
 
-function shower(element, index, array){
+function shower(element, index, array) {
 	element.show();
 }
 
-function setup(){
+function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	nodes.push(new Node(200, 200, "This is sparta"));
 	nodes.push(new Node(400, 400, "This is brocolli"));
 	edges.push(new Edge(nodes[0], nodes[1]));
 }
 
-function draw(){
+function draw() {
 	background(240);
 	edges.forEach(shower);
 	nodes.forEach(shower);
+	noLoop();
 }
 
-function windowRezised(){
+function windowRezised() {
 	resizeCanvas(window.innerWidth, window.innerHeight);
 }
