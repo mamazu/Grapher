@@ -4,5 +4,7 @@ function Node(x, y, text){
 }
 
 Node.prototype.show = function() {
+	rect(this.pos.x, this.pos.y, textWidth(text), -16);
+	textAlign(LEFT, BOTTOM)
 	text(this.text, this.pos.x, this.pos.y);
 };

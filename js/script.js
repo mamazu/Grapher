@@ -14,8 +14,8 @@ function setup(){
 
 function draw(){
 	background(240);
-	nodes.forEach(shower)
 	edges.forEach(shower);
+	nodes.forEach(shower);
 }
 
 function windowRezised(){
