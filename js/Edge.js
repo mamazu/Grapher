@@ -6,6 +6,7 @@ function Edge(from, to){
 }
 
 Edge.prototype.show = function() {
+	ellipse(this.to.pos.x, this.to.pos.y, 20);
 	if(text != undefined){
 		textAlign(CENTER, BOTTOM);
 		text(this.text, this.textPos.x, this.textPos.y);
