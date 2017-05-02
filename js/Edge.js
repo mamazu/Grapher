@@ -28,4 +28,14 @@ Edge.prototype.show = function() {
 	//Drawing the line and the direction
 	line(this.from.pos.x, this.from.pos.y, this.to.pos.x, this.to.pos.y);
 	drawingTheTrianlge(this.to.pos, this.textPos.heading());
-};
+}
+
+Edge.prototype.adapt = function() {
+	if (this.to.priority <= this.from.priority)
+		return;
+	this.from.priority = this.to.priority;
+	edges.foreach(function(e) {
+		if (e.to == this.from)
+			e.adapt();
+	})
+}
