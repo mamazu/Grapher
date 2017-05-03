@@ -9,7 +9,7 @@ function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	nodes.push(new Node(200, 200, "This is sparta"));
 	nodes.push(new Node(400, 400, "This is brocolli"));
-	nodes.push(new Node(400, 200, "Long text incoming: this can be expanded somehow", 3));
+	nodes.push(new Node(400, 200, "Long text incoming: this can be expanded somehow", 1));
 	edges.push(new Edge(nodes[1], nodes[2], "A"));
 	edges.push(new Edge(nodes[0], nodes[1], "B"));
 	edges.push(new Edge(nodes[0], nodes[2], "C"));
@@ -22,11 +22,9 @@ function draw() {
 		shower(element);
 	});
 	nodes.forEach(shower);
-	noLoop();
 }
 
 function mouseClicked() {
-	console.log(mouseX, mouseY)
 	nodes.forEach(function(node) {
 		if (node.pos.x <= mouseX && node.pos.x + node.getWidth() >= mouseX)
 			if (node.pos.y >= mouseY && node.pos.y - node.getHeight() <= mouseY)

@@ -7,7 +7,6 @@ function Edge(from, to, text) {
 }
 
 Edge.prototype.show = function() {
-	console.log(degrees(this.distance.heading()), this.distance, this.text)
 
 	function drawingTheTrianlge(anchor, angle) {
 		fill(0);
