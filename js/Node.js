@@ -3,8 +3,7 @@ const NICE_TO_HAVE = 2;
 const OPTIONAL = 1;
 
 function Node(x, y, text, priority) {
-	this.pos = createVector(x, y);
-	this.text = text;
+	this.textBox = new TextBox(text, x, y);
 	if (priority == undefined)
 		this.priority = NICE_TO_HAVE;
 	else
@@ -13,12 +12,16 @@ function Node(x, y, text, priority) {
 }
 
 Node.prototype.getWidth = function() {
-	return 8 * this.text.length;
+	return 8 * this.textBox.text.length;
 }
 
 Node.prototype.getHeight = function() {
 	return 16;
 }
+
+Node.prototype.getPos = function() {
+	return this.textBox.pos;
+};
 
 Node.prototype.getColor = function() {
 	switch (this.priority) {
@@ -34,18 +37,15 @@ Node.prototype.getColor = function() {
 }
 
 Node.prototype.show = function() {
-	fill(this.getColor());
-	rect(this.pos.x, this.pos.y, this.getWidth(), -this.getHeight());
-	textAlign(LEFT, BOTTOM);
-	fill(0);
-	text(this.text, this.pos.x + 5, this.pos.y);
+	this.textBox.bgColor = this.getColor();
+	this.textBox.show();
 	if (this.contextMenu) {
 		this.contextMenu.show()
 	}
 }
 
 Node.prototype.click = function() {
-	if (this.pos.x <= mouseX && this.pos.x + this.getWidth() >= mouseX && this.pos.y >= mouseY && this.pos.y - this.getHeight() <= mouseY)
+	if (this.getPos().x <= mouseX && this.getPos().x + this.getWidth() >= mouseX && this.getPos().y >= mouseY && this.getPos().y - this.getHeight() <= mouseY)
 		this.contextMenu = new ContextMenu(this);
 	else
 		this.contextMenu = undefined;

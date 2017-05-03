@@ -2,8 +2,8 @@ function Edge(from, to, text) {
 	this.from = from;
 	this.to = to;
 	this.text = text;
-	this.distance = createVector(to.pos.x - from.pos.x, to.pos.y - from.pos.y)
-	this.textPos = createVector(from.pos.x + this.distance.x / 2, from.pos.y + this.distance.y / 2)
+	this.distance = createVector(to.getPos().x - from.getPos().x, to.getPos().y - from.getPos().y)
+	this.textPos = createVector(from.getPos().x + this.distance.x / 2, from.getPos().y + this.distance.y / 2)
 }
 
 Edge.prototype.show = function() {
@@ -29,8 +29,8 @@ Edge.prototype.show = function() {
 		pop();
 	}
 	//Drawing the line and the direction
-	line(this.from.pos.x, this.from.pos.y, this.to.pos.x, this.to.pos.y);
-	drawingTheTrianlge(this.to.pos, this.distance.heading());
+	line(this.from.getPos().x, this.from.getPos().y, this.to.getPos().x, this.to.getPos().y);
+	drawingTheTrianlge(this.to.getPos(), this.distance.heading());
 }
 
 Edge.prototype.adapt = function() {

@@ -1,7 +1,7 @@
 function ContextMenu(node) {
 	this.node = node;
-	this.pos = node.pos;
-	this.size = createVector(node.getWidth(), node.getHeight())
+	this.pos = node.getPos();
+	this.size = createVector(node.getWidth(), node.getHeight());
 }
 
 ContextMenu.prototype.show = function() {
