@@ -12,7 +12,7 @@ function Node(x, y, text, priority) {
 }
 
 Node.prototype.getWidth = function() {
-	return 6 * this.text.length;
+	return 8 * this.text.length;
 }
 
 Node.prototype.getHeight = function() {
