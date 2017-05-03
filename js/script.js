@@ -26,9 +26,7 @@ function draw() {
 
 function mouseClicked() {
 	nodes.forEach(function(node) {
-		if (node.pos.x <= mouseX && node.pos.x + node.getWidth() >= mouseX)
-			if (node.pos.y >= mouseY && node.pos.y - node.getHeight() <= mouseY)
-				node.contextMenu(mouseX, mouseY);
+		node.click(mouseX, mouseY);
 	});
 }
 

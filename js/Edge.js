@@ -24,6 +24,7 @@ Edge.prototype.show = function() {
 		push();
 		translate(this.textPos.x, this.textPos.y)
 		rotate(this.distance.heading);
+		fill(0);
 		text(this.text, 0, 0);
 		pop();
 	}

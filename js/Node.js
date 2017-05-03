@@ -9,6 +9,7 @@ function Node(x, y, text, priority) {
 		this.priority = NICE_TO_HAVE;
 	else
 		this.priority = priority;
+	this.contextMenu = undefined;
 }
 
 Node.prototype.getWidth = function() {
@@ -38,4 +39,15 @@ Node.prototype.show = function() {
 	textAlign(LEFT, BOTTOM);
 	fill(0);
 	text(this.text, this.pos.x + 5, this.pos.y);
+	if (this.contextMenu) {
+		this.contextMenu.show()
+	}
+}
+
+Node.prototype.click = function() {
+	if (this.pos.x <= mouseX && this.pos.x + this.getWidth() >= mouseX && this.pos.y >= mouseY && this.pos.y - this.getHeight() <= mouseY)
+		this.contextMenu = new ContextMenu(this);
+	else
+		this.contextMenu = undefined;
+	if (!this.contextMenu) return;
 }
