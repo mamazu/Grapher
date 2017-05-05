@@ -107,6 +107,11 @@ function keyPressed(evt) {
 		var pos = view.getMouse();
 		nodes.push(new Node(pos.x, pos.y, "New node"));
 	}
+	if (evt.keyCode == ESCAPE) {
+		nodes.forEach((node) => {
+			node.isActive = false;
+		})
+	}
 }
 
 // Window actions
