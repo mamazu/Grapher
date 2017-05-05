@@ -80,7 +80,7 @@ Node.prototype.click = function() {
 		return false;
 	}
 
-	if (inside(this.getPos(), this.getDim(), createVector(mouseX, mouseY))) {
+	if (inside(this.getPos(), this.getDim(), createVector(mouseX - view.x, mouseY - view.y))) {
 		this.isActive = !this.isActive;
 	} else {
 		this.isActive = false;

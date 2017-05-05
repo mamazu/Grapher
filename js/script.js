@@ -14,7 +14,6 @@ function shower(element) {
 }
 
 function grid() {
-	console.log("test");
 	stroke("gray");
 	xZero = Math.floor(width / view.gridSize) / 2 * view.gridSize;
 	yZero = Math.floor(height / view.gridSize) / 2 * view.gridSize;
@@ -61,7 +60,7 @@ function draw() {
 // Mouse event
 function mouseClicked() {
 	nodes.forEach(function(node) {
-		node.click(mouseX, mouseY);
+		node.click();
 	});
 }
 
