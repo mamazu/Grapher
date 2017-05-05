@@ -23,6 +23,31 @@ Node.prototype.getPos = function() {
 	return this.textBox.pos;
 };
 
+Node.prototype.getAnchor = function (other) {
+	var thisPos = this.getPos();
+	var point = createVector(0, 0);
+	var diff = p5.Vector.sub(thisPos, other.getPos());
+
+	// xpos
+	if (diff.x < 0){
+		point.x = thisPos.x + this.getWidth()
+	}else if(abs(diff.x) <= this.getWidth() / 2){
+		point.x = thisPos.x + this.getWidth() / 2;
+	}else{
+		point.x = thisPos.x;
+	}
+
+	// ypos
+	if (diff.y < 0){
+		point.y = thisPos.y + this.getHeight();
+	}else if(abs(diff.y) <= this.getHeight() / 2){
+		point.y = thisPos.y + this.getHeight() / 2;
+	}else{
+		point.y = thisPos.y;
+	}
+	return point;
+};
+
 Node.prototype.getColor = function() {
 	switch (this.priority) {
 		case CRUCIAL:

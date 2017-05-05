@@ -18,12 +18,12 @@ TextBox.prototype.show = function() {
 	fill(this.bgColor);
 	stroke(this.color);
 	strokeWeight(2);
-	rect(this.pos.x, this.pos.y - this.getHeight() / 2, this.getWidth(), this.getHeight());
+	rect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
 	strokeWeight(1);
 
 	//Drawing the text
 	fill(0);
-	textAlign(LEFT, CENTER);
+	textAlign(LEFT, TOP);
 	stroke(0, 0, 0, .2);
-	text(this.text, this.pos.x, this.pos.y);
+	text(this.text, this.pos.x + 5, this.pos.y + 1);
 };

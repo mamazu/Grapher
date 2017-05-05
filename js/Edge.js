@@ -2,8 +2,12 @@ function Edge(from, to, text) {
 	this.from = from;
 	this.to = to;
 	this.text = text;
-	this.distance = createVector(to.getPos().x - from.getPos().x, to.getPos().y - from.getPos().y)
-	this.textPos = createVector(from.getPos().x + this.distance.x / 2, from.getPos().y + this.distance.y / 2)
+
+	this.anchorFrom = this.from.getAnchor(this.to);
+	this.anchorTo = this.to.getAnchor(this.from);
+
+	this.distance = p5.Vector.sub(this.anchorTo, this.anchorFrom);
+	this.textPos = createVector(this.anchorFrom.x + this.distance.x / 2, this.anchorFrom.y + this.distance.y / 2)
 }
 
 Edge.prototype.show = function() {
@@ -14,7 +18,8 @@ Edge.prototype.show = function() {
 		push();
 		translate(anchor.x, anchor.y);
 		rotate(angle - HALF_PI);
-		triangle(-10, 0, 0, 10, 10, 0);
+		translate(0, -10);
+		triangle(-10, -5, 10, -5, 0, 10);
 		pop();
 	}
 
@@ -31,8 +36,8 @@ Edge.prototype.show = function() {
 		pop();
 	}
 	//Drawing the line and the direction
-	line(this.from.getPos().x, this.from.getPos().y, this.to.getPos().x, this.to.getPos().y);
-	drawingTheTrianlge(this.to.getPos(), this.distance.heading());
+	line(this.anchorFrom.x, this.anchorFrom.y, this.anchorTo.x, this.anchorTo.y);
+	drawingTheTrianlge(this.anchorTo, this.distance.heading());
 }
 
 Edge.prototype.adapt = function() {
