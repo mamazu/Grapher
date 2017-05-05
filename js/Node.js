@@ -73,9 +73,9 @@ Node.prototype.show = function() {
 
 Node.prototype.click = function() {
 	function inside(pos, size, point) {
-		var diff = p5.Vector.sub(point, pos);
-		if (diff.x >= 0 && diff.x <= size.x) {
-			return diff.y >= 0 && diff.y <= size.y;
+		var diff = p5.Vector.sub(point, p5.Vector.mult(pos, view.scale));
+		if (diff.x >= 0 && diff.x <= size.x * view.scale) {
+			return diff.y >= 0 && diff.y <= size.y * view.scale;
 		}
 		return false;
 	}
