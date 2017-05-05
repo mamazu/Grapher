@@ -1,16 +1,20 @@
 nodes = []
 edges = []
-view = {
-	'x': 0,
-	'y': 0,
-	'scale': 1,
-	'gridSize': 20
-}
+view = {}
 fc = 0;
 
 //User defined
 function shower(element) {
 	element.show();
+}
+
+function resetView() {
+	view = {
+		'x': 0,
+		'y': 0,
+		'scale': 1,
+		'gridSize': 20
+	};
 }
 
 function grid() {
@@ -30,6 +34,7 @@ function grid() {
 function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	textSize(16);
+	resetView();
 	nodes.push(new Node(200, 200, "This is sparta"));
 	nodes.push(new Node(400, 400, "This is brocolli"));
 	nodes.push(new Node(400, 200, "Long text incoming: this can be expanded somehow", 1));
@@ -76,6 +81,12 @@ function mouseWheel(evt) {
 		view.scale -= 0.125;
 	else if (evt.delta < 0)
 		view.scale += 0.125
+}
+
+// Key events
+function keyPressed(evt) {
+	if (evt.key == "0")
+		resetView();
 }
 
 // Window actions
