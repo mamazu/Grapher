@@ -21,32 +21,36 @@ Node.prototype.getHeight = function() {
 
 Node.prototype.getPos = function() {
 	return this.textBox.pos;
-};
+}
 
-Node.prototype.getAnchor = function (other) {
+Node.prototype.getDim = function() {
+	return createVector(this.getWidth(), this.getHeight());
+}
+
+Node.prototype.getAnchor = function(other) {
 	var thisPos = this.getPos();
 	var point = createVector(0, 0);
 	var diff = p5.Vector.sub(thisPos, other.getPos());
 
 	// xpos
-	if (diff.x < 0){
+	if (diff.x < 0) {
 		point.x = thisPos.x + this.getWidth()
-	}else if(abs(diff.x) <= this.getWidth() / 2){
+	} else if (abs(diff.x) <= this.getWidth() / 2) {
 		point.x = thisPos.x + this.getWidth() / 2;
-	}else{
+	} else {
 		point.x = thisPos.x;
 	}
 
 	// ypos
-	if (diff.y < 0){
+	if (diff.y < 0) {
 		point.y = thisPos.y + this.getHeight();
-	}else if(abs(diff.y) <= this.getHeight() / 2){
+	} else if (abs(diff.y) <= this.getHeight() / 2) {
 		point.y = thisPos.y + this.getHeight() / 2;
-	}else{
+	} else {
 		point.y = thisPos.y;
 	}
 	return point;
-};
+}
 
 Node.prototype.getColor = function() {
 	switch (this.priority) {
@@ -68,9 +72,17 @@ Node.prototype.show = function() {
 }
 
 Node.prototype.click = function() {
-	if(this.getPos().x <= mouseX && this.getPos().x + this.getWidth() >= mouseX && this.getPos().y >= mouseY && this.getPos().y - this.getHeight() <= mouseY){
+	function inside(pos, size, point) {
+		var diff = p5.Vector.sub(point, pos);
+		if (diff.x >= 0 && diff.x <= size.x) {
+			return diff.y >= 0 && diff.y <= size.y;
+		}
+		return false;
+	}
+
+	if (inside(this.getPos(), this.getDim(), createVector(mouseX, mouseY))) {
 		this.isActive = !this.isActive;
-	}else {
+	} else {
 		this.isActive = false;
 	}
 }
