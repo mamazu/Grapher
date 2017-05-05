@@ -43,5 +43,9 @@ Node.prototype.show = function() {
 }
 
 Node.prototype.click = function() {
-	this.isActive = (this.getPos().x <= mouseX && this.getPos().x + this.getWidth() >= mouseX && this.getPos().y >= mouseY && this.getPos().y - this.getHeight() <= mouseY);
+	if(this.getPos().x <= mouseX && this.getPos().x + this.getWidth() >= mouseX && this.getPos().y >= mouseY && this.getPos().y - this.getHeight() <= mouseY){
+		this.isActive = !this.isActive;
+	}else {
+		this.isActive = false;
+	}
 }
