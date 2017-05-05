@@ -8,5 +8,5 @@ If you see a red dot, that disappears when pressing M that is the center of your
 
 ## Keyconfig
 0 - Resets the view
-m - toggle drawing the origin
+o - toggle drawing the origin
 d - toggle drawing debug information

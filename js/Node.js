@@ -24,7 +24,7 @@ Node.prototype.getPos = function() {
 }
 
 Node.prototype.getDim = function() {
-	return createVector(this.getWidth(), this.getHeight()).mult(view.scale);
+	return createVector(this.getWidth(), this.getHeight());
 }
 
 Node.prototype.getAnchor = function(other) {
@@ -73,14 +73,14 @@ Node.prototype.show = function() {
 
 Node.prototype.click = function() {
 	function inside(pos, size, point) {
-		var diff = p5.Vector.sub(point, p5.Vector.mult(pos, view.scale));
+		var diff = p5.Vector.sub(point, pos);
 		if (diff.x >= 0 && diff.x <= size.x) {
 			return diff.y >= 0 && diff.y <= size.y;
 		}
 		return false;
 	}
 
-	if (inside(this.getPos(), this.getDim(), createVector(mouseX - view.x, mouseY - view.y))) {
+	if (inside(this.getPos(), this.getDim(), view.getMouse())) {
 		this.isActive = !this.isActive;
 	} else {
 		this.isActive = false;
