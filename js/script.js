@@ -15,7 +15,10 @@ function resetView() {
 		'scale': 1,
 		'gridSize': 20,
 		'middle': true,
-		'debug': true
+		'debug': true,
+		'getMouse': function() {
+			return createVector(mouseX - view.x, mouseY - view.y).mult(1 / view.scale);
+		}
 	};
 }
 
@@ -94,11 +97,15 @@ function mouseWheel(evt) {
 function keyPressed(evt) {
 	if (evt.key == "0")
 		resetView();
-	if (evt.key == "m" || evt.key == "M") {
+	if (evt.key == "o" || evt.key == "O") {
 		view.middle = !view.middle;
 	}
 	if (evt.key == "d" || evt.key == "d") {
 		view.debug = !view.debug;
+	}
+	if (evt.key == "m" || evt.key == "M") {
+		var pos = view.getMouse();
+		nodes.push(new Node(pos.x, pos.y, "New node"));
 	}
 }
 
