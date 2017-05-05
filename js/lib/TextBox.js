@@ -1,7 +1,7 @@
 function TextBox(text, x, y) {
 	this.text = text;
 	this.pos = createVector(x, y);
-	console.log(this.pos)
+	this.color = color(0, 0, 0);
 	this.bgColor = color(0, 0, 0);
 }
 
@@ -16,10 +16,14 @@ TextBox.prototype.getHeight = function() {
 TextBox.prototype.show = function() {
 	// Drawing the box
 	fill(this.bgColor);
+	stroke(this.color);
+	strokeWeight(2);
 	rect(this.pos.x, this.pos.y - this.getHeight() / 2, this.getWidth(), this.getHeight());
+	strokeWeight(1);
 
 	//Drawing the text
 	fill(0);
 	textAlign(LEFT, CENTER);
+	stroke(0, 0, 0, .2);
 	text(this.text, this.pos.x, this.pos.y);
 };

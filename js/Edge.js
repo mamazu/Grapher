@@ -19,12 +19,14 @@ Edge.prototype.show = function() {
 	}
 
 	// Drawing the text
+	stroke('black');
 	if (this.text != undefined) {
 		textAlign(CENTER, BOTTOM);
 		push();
 		translate(this.textPos.x, this.textPos.y)
 		rotate(this.distance.heading);
 		fill(0);
+		stroke(0, 0, 0, .2);
 		text(this.text, 0, 0);
 		pop();
 	}

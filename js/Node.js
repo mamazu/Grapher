@@ -38,6 +38,7 @@ Node.prototype.getColor = function() {
 
 Node.prototype.show = function() {
 	this.textBox.bgColor = this.getColor();
+	this.textBox.color = this.isActive ? color(255, 0, 0) : color(0, 0, 0);
 	this.textBox.show();
 }
 
