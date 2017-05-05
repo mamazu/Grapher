@@ -4,13 +4,28 @@ view = {
 	'x': 0,
 	'y': 0,
 	'scale': 1,
+	'gridSize': 20
 }
+fc = 0;
 
 //User defined
 function shower(element) {
 	element.show();
 }
 
+function grid() {
+	console.log("test");
+	stroke("gray");
+	xZero = Math.floor(width / view.gridSize) / 2 * view.gridSize;
+	yZero = Math.floor(height / view.gridSize) / 2 * view.gridSize;
+	for (var x = 0; x < width; x += view.gridSize)
+		for (var y = 0; y < height; y += view.gridSize) {
+			strokeWeight((x == xZero) ? 2 : 1);
+			line(x, 0, x, height);
+			strokeWeight((y == yZero) ? 2 : 1);
+			line(0, y, width, y);
+		}
+}
 
 // P5 Functions
 function setup() {
@@ -25,15 +40,22 @@ function setup() {
 }
 
 function draw() {
+	// Background and grid
+	background(240);
+	grid();
 	translate(view.x, view.y);
 	scale(view.scale);
-	background(240);
+	fill("red");
+	ellipse(0, 0, 5);
+	text(fc, 10, 10)
+
+	// Content
 	edges.forEach(function(element) {
 		element.adapt();
 		shower(element);
 	});
 	nodes.forEach(shower);
-	grid();
+	fc++;
 }
 
 // Mouse event
