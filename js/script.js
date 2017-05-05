@@ -10,17 +10,19 @@ function shower(element) {
 
 function resetView() {
 	view = {
-		'x': 0,
-		'y': 0,
+		'x': width / 2,
+		'y': height / 2,
 		'scale': 1,
-		'gridSize': 20
+		'gridSize': 20,
+		'middle': true,
+		'debug': true
 	};
 }
 
 function grid() {
 	stroke("gray");
-	xZero = Math.floor(width / view.gridSize) / 2 * view.gridSize;
-	yZero = Math.floor(height / view.gridSize) / 2 * view.gridSize;
+	xZero = Math.round(width / view.gridSize / 2) * view.gridSize;
+	yZero = Math.round(height / view.gridSize / 2) * view.gridSize;
 	for (var x = 0; x < width; x += view.gridSize)
 		for (var y = 0; y < height; y += view.gridSize) {
 			strokeWeight((x == xZero) ? 2 : 1);
@@ -35,9 +37,9 @@ function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	textSize(16);
 	resetView();
-	nodes.push(new Node(200, 200, "This is sparta"));
-	nodes.push(new Node(400, 400, "This is brocolli"));
-	nodes.push(new Node(400, 200, "Long text incoming: this can be expanded somehow", 1));
+	nodes.push(new Node(-200, -100, "This is sparta"));
+	nodes.push(new Node(0, 100, "This is brocolli"));
+	nodes.push(new Node(0, -100, "Long text incoming: this can be expanded somehow", 1));
 	edges.push(new Edge(nodes[1], nodes[2], "A"));
 	edges.push(new Edge(nodes[0], nodes[1], "B"));
 	edges.push(new Edge(nodes[0], nodes[2], "C"));
@@ -49,9 +51,15 @@ function draw() {
 	grid();
 	translate(view.x, view.y);
 	scale(view.scale);
-	fill("red");
-	ellipse(0, 0, 5);
-	text(fc, 10, 10)
+	if (view.middle) {
+		fill("red");
+		ellipse(0, 0, 5);
+	}
+	if (view.debug) {
+		fill("black");
+		text(fc, 10, 10);
+		fc++;
+	}
 
 	// Content
 	edges.forEach(function(element) {
@@ -59,7 +67,6 @@ function draw() {
 		shower(element);
 	});
 	nodes.forEach(shower);
-	fc++;
 }
 
 // Mouse event
@@ -87,6 +94,12 @@ function mouseWheel(evt) {
 function keyPressed(evt) {
 	if (evt.key == "0")
 		resetView();
+	if (evt.key == "m" || evt.key == "M") {
+		view.middle = !view.middle;
+	}
+	if (evt.key == "d" || evt.key == "d") {
+		view.debug = !view.debug;
+	}
 }
 
 // Window actions
