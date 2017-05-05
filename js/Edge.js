@@ -3,11 +3,7 @@ function Edge(from, to, text) {
 	this.to = to;
 	this.text = text;
 
-	this.anchorFrom = this.from.getAnchor(this.to);
-	this.anchorTo = this.to.getAnchor(this.from);
-
-	this.distance = p5.Vector.sub(this.anchorTo, this.anchorFrom);
-	this.textPos = createVector(this.anchorFrom.x + this.distance.x / 2, this.anchorFrom.y + this.distance.y / 2)
+	this.recalculate();
 }
 
 Edge.prototype.show = function() {
@@ -41,6 +37,14 @@ Edge.prototype.show = function() {
 	line(this.anchorFrom.x, this.anchorFrom.y, this.anchorTo.x, this.anchorTo.y);
 	strokeWeight(1);
 	drawingTheTrianlge(this.anchorTo, this.distance.heading());
+}
+
+Edge.prototype.recalculate = function() {
+	this.anchorFrom = this.from.getAnchor(this.to);
+	this.anchorTo = this.to.getAnchor(this.from);
+
+	this.distance = p5.Vector.sub(this.anchorTo, this.anchorFrom);
+	this.textPos = createVector(this.anchorFrom.x + this.distance.x / 2, this.anchorFrom.y + this.distance.y / 2);
 }
 
 Edge.prototype.adapt = function() {

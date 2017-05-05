@@ -73,7 +73,7 @@ function draw() {
 }
 
 // Mouse event
-function mouseClicked() {
+function mousePressed() {
 	nodes.forEach(function(node) {
 		node.click();
 	});
@@ -82,8 +82,17 @@ function mouseClicked() {
 function mouseMoved() {}
 
 function mouseDragged(evt) {
-	view.x += evt.movementX;
-	view.y += evt.movementY;
+	if (!evt.ctrlKey) {
+		view.x += evt.movementX;
+		view.y += evt.movementY;
+	} else {
+		for (var i = 0; i < nodes.length; i++) {
+			var node = nodes[i];
+			if (!node.isActive) continue;
+			node.textBox.pos.add(createVector(evt.movementX, evt.movementY));
+		}
+	}
+	edges.forEach((edge) => edge.recalculate());
 }
 
 function mouseWheel(evt) {
