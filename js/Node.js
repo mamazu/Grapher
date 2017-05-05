@@ -8,7 +8,7 @@ function Node(x, y, text, priority) {
 		this.priority = NICE_TO_HAVE;
 	else
 		this.priority = priority;
-	this.contextMenu = undefined;
+	this.isActive = false;
 }
 
 Node.prototype.getWidth = function() {
@@ -39,15 +39,8 @@ Node.prototype.getColor = function() {
 Node.prototype.show = function() {
 	this.textBox.bgColor = this.getColor();
 	this.textBox.show();
-	if (this.contextMenu) {
-		this.contextMenu.show()
-	}
 }
 
 Node.prototype.click = function() {
-	if (this.getPos().x <= mouseX && this.getPos().x + this.getWidth() >= mouseX && this.getPos().y >= mouseY && this.getPos().y - this.getHeight() <= mouseY)
-		this.contextMenu = new ContextMenu(this);
-	else
-		this.contextMenu = undefined;
-	if (!this.contextMenu) return;
+	this.isActive = (this.getPos().x <= mouseX && this.getPos().x + this.getWidth() >= mouseX && this.getPos().y >= mouseY && this.getPos().y - this.getHeight() <= mouseY);
 }
