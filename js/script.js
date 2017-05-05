@@ -7,6 +7,7 @@ function shower(element) {
 
 function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
+	textSize(16);
 	nodes.push(new Node(200, 200, "This is sparta"));
 	nodes.push(new Node(400, 400, "This is brocolli"));
 	nodes.push(new Node(400, 200, "Long text incoming: this can be expanded somehow", 1));

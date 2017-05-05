@@ -13,13 +13,14 @@ function Edge(from, to, text) {
 Edge.prototype.show = function() {
 
 	function drawingTheTrianlge(anchor, angle) {
+		const SCALE = 10;
 		fill(0);
 		// Moving the triangle
 		push();
 		translate(anchor.x, anchor.y);
 		rotate(angle - HALF_PI);
-		translate(0, -10);
-		triangle(-10, -5, 10, -5, 0, 10);
+		translate(0, -SCALE);
+		triangle(-SCALE, -SCALE * .5, SCALE, -SCALE * .5, 0, SCALE);
 		pop();
 	}
 
@@ -36,7 +37,9 @@ Edge.prototype.show = function() {
 		pop();
 	}
 	//Drawing the line and the direction
+	strokeWeight(2);
 	line(this.anchorFrom.x, this.anchorFrom.y, this.anchorTo.x, this.anchorTo.y);
+	strokeWeight(1);
 	drawingTheTrianlge(this.anchorTo, this.distance.heading());
 }
 

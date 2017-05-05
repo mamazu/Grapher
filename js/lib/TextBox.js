@@ -10,7 +10,7 @@ TextBox.prototype.getWidth = function() {
 }
 
 TextBox.prototype.getHeight = function() {
-	return 16;
+	return 18;
 }
 
 TextBox.prototype.show = function() {
