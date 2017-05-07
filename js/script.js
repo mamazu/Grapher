@@ -1,29 +1,15 @@
-nodes = []
-edges = []
-view = {}
-clipboard = {
+var nodes = []
+var edges = []
+var view = new View();
+var clipboard = {
 	'position': undefined,
 	'nodes': []
 }
-fc = 0;
+var fc = 0;
 
 //User defined
 function shower(element) {
 	element.show();
-}
-
-function resetView() {
-	view = {
-		'x': width / 2,
-		'y': height / 2,
-		'scale': 1,
-		'gridSize': 20,
-		'middle': true,
-		'debug': true,
-		'getMouse': function() {
-			return createVector(mouseX - view.x, mouseY - view.y).mult(1 / view.scale);
-		}
-	};
 }
 
 function grid() {
@@ -43,7 +29,7 @@ function grid() {
 function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	textSize(16);
-	resetView();
+	view.reset();
 	nodes.push(new Node(-200, -100, "This is sparta"));
 	nodes.push(new Node(0, 100, "This is brocolli"));
 	nodes.push(new Node(0, -100, "Long text incoming: this can be expanded somehow", 1));
