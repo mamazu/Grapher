@@ -96,7 +96,7 @@ function mouseWheel(evt) {
 // Key events
 function keyPressed(evt) {
 	if (evt.key == "0")
-		resetView();
+		view.reset();
 	else if (evt.key == "o" || evt.key == "O") {
 		view.middle = !view.middle;
 	}
