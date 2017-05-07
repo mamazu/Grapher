@@ -11,8 +11,18 @@ View.prototype.reset = function () {
   this.gridSize = 20;
   this.middle = true;
   this.debug = true;
+  this.resetMode();
 };
 
 View.prototype.getMouse = function() {
   return createVector(mouseX - view.x, mouseY - view.y).mult(1 / view.scale);
 }
+
+View.prototype.resetMode = function () {
+  this.mode = 'normal';
+};
+
+View.prototype.toggleMode = function () {
+  this.mode = (this.mode == 'normal') ? 'connect' : 'normal';
+  console.log("The current mode is: '", this.mode, "'");
+};

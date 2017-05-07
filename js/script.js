@@ -1,6 +1,7 @@
 var view, clipboard;
 var nodes = []
 var edges = []
+var edgeToBuild;
 var fc = 0;
 
 //User defined
@@ -25,6 +26,7 @@ function grid() {
 function preload(){
 	view = new View();
 	clipboard = new Clipboard();
+	edgeToBuild = new Edge();
 }
 
 function setup() {
@@ -66,7 +68,23 @@ function draw() {
 // Mouse event
 function mousePressed() {
 	nodes.forEach(function(node) {
-		node.click();
+		var clicked = node.click();
+		if(view.mode == 'connect' && clicked){
+			if (!edgeToBuild.from){
+				edgeToBuild.from = node;
+			}
+			if(node != edgeToBuild.from){
+				edgeToBuild.to = node;
+				edgeToBuild.recalculate();
+
+				// Resetting the active status
+				edgeToBuild.to.isActive = false;
+				edgeToBuild.from.isActive = false;
+
+				edges.push(edgeToBuild);
+				edgeToBuild = new Edge();
+			}
+		}
 	});
 }
 
@@ -112,6 +130,7 @@ function keyPressed(evt) {
 			node.isActive = false;
 		});
 		clipboard.reset();
+		view.resetMode();
 	}
 	else if (evt.key == 'A' || evt.key == 'a') {
 		if (evt.ctrlKey)
@@ -121,6 +140,7 @@ function keyPressed(evt) {
 	}
 	else if (evt.key == 'C' || evt.key == 'c') {
 		if (evt.ctrlKey) clipboard.cp();
+		else view.toggleMode();
 	}
 	else if (evt.key == 'V' || evt.key == 'v') {
 		if(evt.ctrlKey) clipboard.paste();
