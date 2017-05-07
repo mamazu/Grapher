@@ -1,10 +1,6 @@
+var view, clipboard;
 var nodes = []
 var edges = []
-var view = new View();
-var clipboard = {
-	'position': undefined,
-	'nodes': []
-}
 var fc = 0;
 
 //User defined
@@ -26,6 +22,11 @@ function grid() {
 }
 
 // P5 Functions
+function preload(){
+	view = new View();
+	clipboard = new Clipboard();
+}
+
 function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	textSize(16);
@@ -118,12 +119,10 @@ function keyPressed(evt) {
 			});
 	}
 	else if (evt.key == 'C' || evt.key == 'c') {
-		if (evt.ctrlKey)
-			nodes.forEach((node) => {
-				if (node.isActive){
-					clipboard.nodes.push(node);
-				}
-			})
+		if (evt.ctrlKey) clipboard.cp();
+	}
+	else if (evt.key == 'V' || evt.key == 'v') {
+		if(evt.ctrlKey) clipboard.paste();
 	}
 
 }
