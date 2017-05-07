@@ -1,6 +1,10 @@
 nodes = []
 edges = []
 view = {}
+clipboard = {
+	'position': undefined,
+	'nodes': []
+}
 fc = 0;
 
 //User defined
@@ -106,21 +110,36 @@ function mouseWheel(evt) {
 function keyPressed(evt) {
 	if (evt.key == "0")
 		resetView();
-	if (evt.key == "o" || evt.key == "O") {
+	else if (evt.key == "o" || evt.key == "O") {
 		view.middle = !view.middle;
 	}
-	if (evt.key == "d" || evt.key == "d") {
+	else if (evt.key == "d" || evt.key == "d") {
 		view.debug = !view.debug;
 	}
-	if (evt.key == "m" || evt.key == "M") {
+	else if (evt.key == "m" || evt.key == "M") {
 		var pos = view.getMouse();
 		nodes.push(new Node(pos.x, pos.y, "New node"));
 	}
-	if (evt.keyCode == ESCAPE) {
+	else if (evt.keyCode == ESCAPE) {
 		nodes.forEach((node) => {
 			node.isActive = false;
 		})
 	}
+	else if (evt.key == 'A' || evt.key == 'a') {
+		if (evt.ctrlKey)
+			nodes.forEach((node) => {
+				node.isActive = true;
+			});
+	}
+	else if (evt.key == 'C' || evt.key == 'c') {
+		if (evt.ctrlKey)
+			nodes.forEach((node) => {
+				if (node.isActive){
+					clipboard.nodes.push(node);
+				}
+			})
+	}
+
 }
 
 // Window actions
