@@ -12,11 +12,11 @@ function Node(x, y, text, priority) {
 }
 
 Node.prototype.getWidth = function() {
-	return 8 * this.textBox.text.length;
+	return this.textBox.getWidth();
 }
 
 Node.prototype.getHeight = function() {
-	return 16;
+	return this.textBox.getHeight();
 }
 
 Node.prototype.getPos = function() {
