@@ -110,7 +110,8 @@ function keyPressed(evt) {
 	else if (evt.keyCode == ESCAPE) {
 		nodes.forEach((node) => {
 			node.isActive = false;
-		})
+		});
+		clipboard.reset();
 	}
 	else if (evt.key == 'A' || evt.key == 'a') {
 		if (evt.ctrlKey)

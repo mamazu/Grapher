@@ -1,6 +1,10 @@
 function Clipboard() {
-	this.position = createVector(0, 0);
-	this.nodes = []
+	this.reset();
+};
+
+Clipboard.prototype.reset = function (){
+	this.position = createVector();
+	this.nodes = [];
 };
 
 Clipboard.prototype.cp = function (){
