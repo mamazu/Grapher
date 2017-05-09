@@ -26,4 +26,4 @@ TextBox.prototype.show = function() {
 	textAlign(LEFT, TOP);
 	stroke(0, 0, 0, .2);
 	text(this.text, this.pos.x + 5, this.pos.y + 1);
-};
+}
