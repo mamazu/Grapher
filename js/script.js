@@ -23,7 +23,7 @@ function grid() {
 }
 
 // P5 Functions
-function preload(){
+function preload() {
 	view = new View();
 	clipboard = new Clipboard();
 	edgeToBuild = new Edge();
@@ -49,6 +49,7 @@ function draw() {
 		pos = "Mouse: (" + mouseX + "|" + mouseY + ")\nGlobal: (" + view.getMouse().x + "|" + view.getMouse().y + ")";
 		text(pos, 10, height - 18 * 2 - 10);
 	}
+	view.showMessage();
 	translate(view.x, view.y);
 	scale(view.scale);
 	if (view.middle) {
@@ -73,11 +74,11 @@ function draw() {
 function mousePressed() {
 	nodes.forEach(function(node) {
 		var clicked = node.click();
-		if(view.mode == 'connect' && clicked){
-			if (!edgeToBuild.from){
+		if (view.mode == 'connect' && clicked) {
+			if (!edgeToBuild.from) {
 				edgeToBuild.from = node;
 			}
-			if(node != edgeToBuild.from){
+			if (node != edgeToBuild.from) {
 				edgeToBuild.to = node;
 				edgeToBuild.recalculate();
 
@@ -121,33 +122,27 @@ function keyPressed(evt) {
 		view.reset();
 	else if (evt.key == "o" || evt.key == "O") {
 		view.middle = !view.middle;
-	}
-	else if (evt.key == "d" || evt.key == "d") {
+	} else if (evt.key == "d" || evt.key == "d") {
 		view.debug = !view.debug;
-	}
-	else if (evt.key == "m" || evt.key == "M") {
+	} else if (evt.key == "m" || evt.key == "M") {
 		var pos = view.getMouse();
 		nodes.push(new Node(pos.x, pos.y, "New node"));
-	}
-	else if (evt.keyCode == ESCAPE) {
+	} else if (evt.keyCode == ESCAPE) {
 		nodes.forEach((node) => {
 			node.isActive = false;
 		});
 		clipboard.reset();
 		view.resetMode();
-	}
-	else if (evt.key == 'A' || evt.key == 'a') {
+	} else if (evt.key == 'A' || evt.key == 'a') {
 		if (evt.ctrlKey)
 			nodes.forEach((node) => {
 				node.isActive = true;
 			});
-	}
-	else if (evt.key == 'C' || evt.key == 'c') {
+	} else if (evt.key == 'C' || evt.key == 'c') {
 		if (evt.ctrlKey) clipboard.cp();
 		else view.toggleMode();
-	}
-	else if (evt.key == 'V' || evt.key == 'v') {
-		if(evt.ctrlKey) clipboard.paste();
+	} else if (evt.key == 'V' || evt.key == 'v') {
+		if (evt.ctrlKey) clipboard.paste();
 	}
 
 }
