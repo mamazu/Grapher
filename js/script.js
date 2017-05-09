@@ -52,6 +52,10 @@ function draw() {
 	// Background and grid
 	background(240);
 	grid();
+	if (view.debug) {
+		pos = "Mouse: (" + mouseX + "|" + mouseY + ")\nGlobal: (" + view.getMouse().x + "|" + view.getMouse().y + ")";
+		text(pos, 10, height - 18 * 2 - 10);
+	}
 	translate(view.x, view.y);
 	scale(view.scale);
 	if (view.middle) {
