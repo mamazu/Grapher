@@ -1,25 +1,12 @@
-nodes = []
-edges = []
-view = {}
-fc = 0;
+var view, clipboard;
+var nodes = []
+var edges = []
+var edgeToBuild;
+var fc = 0;
 
 //User defined
 function shower(element) {
 	element.show();
-}
-
-function resetView() {
-	view = {
-		'x': width / 2,
-		'y': height / 2,
-		'scale': 1,
-		'gridSize': 20,
-		'middle': true,
-		'debug': true,
-		'getMouse': function() {
-			return createVector(mouseX - view.x, mouseY - view.y).mult(1 / view.scale);
-		}
-	};
 }
 
 function grid() {
@@ -36,10 +23,16 @@ function grid() {
 }
 
 // P5 Functions
+function preload(){
+	view = new View();
+	clipboard = new Clipboard();
+	edgeToBuild = new Edge();
+}
+
 function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	textSize(16);
-	resetView();
+	view.reset();
 	nodes.push(new Node(-200, -100, "This is sparta"));
 	nodes.push(new Node(0, 100, "This is brocolli"));
 	nodes.push(new Node(0, -100, "Long text incoming: this can be expanded somehow", 1));
@@ -79,7 +72,23 @@ function draw() {
 // Mouse event
 function mousePressed() {
 	nodes.forEach(function(node) {
-		node.click();
+		var clicked = node.click();
+		if(view.mode == 'connect' && clicked){
+			if (!edgeToBuild.from){
+				edgeToBuild.from = node;
+			}
+			if(node != edgeToBuild.from){
+				edgeToBuild.to = node;
+				edgeToBuild.recalculate();
+
+				// Resetting the active status
+				edgeToBuild.to.isActive = false;
+				edgeToBuild.from.isActive = false;
+
+				edges.push(edgeToBuild);
+				edgeToBuild = new Edge();
+			}
+		}
 	});
 }
 
@@ -109,22 +118,38 @@ function mouseWheel(evt) {
 // Key events
 function keyPressed(evt) {
 	if (evt.key == "0")
-		resetView();
-	if (evt.key == "o" || evt.key == "O") {
+		view.reset();
+	else if (evt.key == "o" || evt.key == "O") {
 		view.middle = !view.middle;
 	}
-	if (evt.key == "d" || evt.key == "d") {
+	else if (evt.key == "d" || evt.key == "d") {
 		view.debug = !view.debug;
 	}
-	if (evt.key == "m" || evt.key == "M") {
+	else if (evt.key == "m" || evt.key == "M") {
 		var pos = view.getMouse();
 		nodes.push(new Node(pos.x, pos.y, "New node"));
 	}
-	if (evt.keyCode == ESCAPE) {
+	else if (evt.keyCode == ESCAPE) {
 		nodes.forEach((node) => {
 			node.isActive = false;
-		})
+		});
+		clipboard.reset();
+		view.resetMode();
 	}
+	else if (evt.key == 'A' || evt.key == 'a') {
+		if (evt.ctrlKey)
+			nodes.forEach((node) => {
+				node.isActive = true;
+			});
+	}
+	else if (evt.key == 'C' || evt.key == 'c') {
+		if (evt.ctrlKey) clipboard.cp();
+		else view.toggleMode();
+	}
+	else if (evt.key == 'V' || evt.key == 'v') {
+		if(evt.ctrlKey) clipboard.paste();
+	}
+
 }
 
 // Window actions

@@ -1,4 +1,6 @@
 function Edge(from, to, text) {
+	if (from == undefined)
+		return;
 	this.from = from;
 	this.to = to;
 	this.text = text;

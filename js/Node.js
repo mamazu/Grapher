@@ -12,11 +12,11 @@ function Node(x, y, text, priority) {
 }
 
 Node.prototype.getWidth = function() {
-	return 8 * this.textBox.text.length;
+	return this.textBox.getWidth();
 }
 
 Node.prototype.getHeight = function() {
-	return 16;
+	return this.textBox.getHeight();
 }
 
 Node.prototype.getPos = function() {
@@ -83,4 +83,8 @@ Node.prototype.click = function() {
 	if (inside(this.getPos(), this.getDim(), view.getMouse())) {
 		this.isActive = !this.isActive;
 	}
+<<<<<<< HEAD
+=======
+	return this.isActive;
+>>>>>>> 367f7993848183f8eec82b39a9f8cdf19e77edff
 }
