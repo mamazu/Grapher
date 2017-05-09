@@ -83,8 +83,5 @@ Node.prototype.click = function() {
 	if (inside(this.getPos(), this.getDim(), view.getMouse())) {
 		this.isActive = !this.isActive;
 	}
-<<<<<<< HEAD
-=======
 	return this.isActive;
->>>>>>> 367f7993848183f8eec82b39a9f8cdf19e77edff
 }
