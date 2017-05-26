@@ -16,6 +16,7 @@ View.prototype.reset = function() {
 		"duration": -1
 	};
 	this.resetMode();
+	this.changed = true;
 };
 
 View.prototype.getMouse = function() {
@@ -47,13 +48,15 @@ View.prototype.setMessage = function(message, duration) {
 }
 
 View.prototype.showMessage = function() {
-	if (view.message.duration <= 0)
-		return;
-	this.message.duration--;
-	fill("blue");
-	rect(0, 0, width, 30);
-	fill("white");
-	text(this.message.text, (width - this.message.text.length * 8) / 2, 7);
+	if (view.message.duration >= 0) {
+		this.changed = true;
+		this.message.duration--;
+		fill("blue");
+		rect(0, 0, width, 30);
+		fill("white");
+		text(this.message.text, (width - this.message.text.length * 8) / 2, 7);
+		fill("black");
+	}
 }
 
 View.prototype.showViewString = function() {

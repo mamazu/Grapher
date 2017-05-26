@@ -5,10 +5,6 @@ var edgeToBuild;
 var fc = 0;
 
 //User defined
-function shower(element) {
-	element.show();
-}
-
 function grid() {
 	stroke("gray");
 	xZero = Math.round(width / view.gridSize / 2) * view.gridSize;
@@ -42,6 +38,10 @@ function setup() {
 }
 
 function draw() {
+	if (!view.changed) {
+		view.showMessage();
+		return;
+	}
 	// Background and grid
 	background(240);
 	grid();
@@ -65,15 +65,17 @@ function draw() {
 	}
 
 	// Content
-	edges.forEach(function(element) {
-		element.adapt();
-		shower(element);
+	edges.forEach(function(edge) {
+		edge.adapt();
+		edge.show();
 	});
-	nodes.forEach(shower);
+	nodes.forEach((node) => node.show());
+	view.changed = false;
 }
 
 // Mouse event
 function mousePressed() {
+	view.changed = true;
 	nodes.forEach(function(node) {
 		var clicked = node.click();
 		if (view.mode == 'connect' && clicked) {
@@ -97,7 +99,9 @@ function mousePressed() {
 		nodes.push(new Node(view.getMouse().x, view.getMouse().y, 'New Node'));
 }
 
-function mouseMoved() {}
+function mouseMoved() {
+	view.changed = true;
+}
 
 function mouseDragged(evt) {
 	if (!evt.ctrlKey) {
@@ -111,6 +115,7 @@ function mouseDragged(evt) {
 		}
 	}
 	edges.forEach((edge) => edge.recalculate());
+	view.changed = true;
 }
 
 function mouseWheel(evt) {
@@ -136,6 +141,8 @@ function keyPressed(evt) {
 		view.debug = !view.debug;
 	} else if (evt.key == 'm' || evt.key == 'M') {
 		view.toggleMode('new');
+	} else if (evt.key == 'e' || evt.key == 'E') {
+		view.toggleMode('edit');
 	} else if (evt.key == 'a' || evt.key == 'A') {
 		if (evt.ctrlKey)
 			nodes.forEach((node) => {
