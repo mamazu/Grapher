@@ -50,6 +50,8 @@ function draw() {
 		text(pos, 10, height - 18 * 2 - 10);
 	}
 	view.showMessage();
+	view.showViewString();
+	// Everything is relative to the origin now
 	translate(view.x, view.y);
 	scale(view.scale);
 	if (view.middle) {
@@ -91,6 +93,8 @@ function mousePressed() {
 			}
 		}
 	});
+	if (view.mode == 'new')
+		nodes.push(new Node(view.getMouse().x, view.getMouse().y, 'New Node'));
 }
 
 function mouseMoved() {}
@@ -120,28 +124,27 @@ function mouseWheel(evt) {
 function keyPressed(evt) {
 	if (evt.key == "0")
 		view.reset();
-	else if (evt.key == "o" || evt.key == "O") {
-		view.middle = !view.middle;
-	} else if (evt.key == "d" || evt.key == "d") {
-		view.debug = !view.debug;
-	} else if (evt.key == "m" || evt.key == "M") {
-		var pos = view.getMouse();
-		nodes.push(new Node(pos.x, pos.y, "New node"));
-	} else if (evt.keyCode == ESCAPE) {
+	else if (evt.keyCode == ESCAPE) {
 		nodes.forEach((node) => {
 			node.isActive = false;
 		});
 		clipboard.reset();
 		view.resetMode();
-	} else if (evt.key == 'A' || evt.key == 'a') {
+	} else if (evt.key == "o" || evt.key == 'O') {
+		view.middle = !view.middle;
+	} else if (evt.key == 'd' || evt.key == 'D') {
+		view.debug = !view.debug;
+	} else if (evt.key == 'm' || evt.key == 'M') {
+		view.toggleMode('new');
+	} else if (evt.key == 'a' || evt.key == 'A') {
 		if (evt.ctrlKey)
 			nodes.forEach((node) => {
 				node.isActive = true;
 			});
-	} else if (evt.key == 'C' || evt.key == 'c') {
+	} else if (evt.key == 'c' || evt.key == 'C') {
 		if (evt.ctrlKey) clipboard.cp();
-		else view.toggleMode();
-	} else if (evt.key == 'V' || evt.key == 'v') {
+		else view.toggleMode('connect');
+	} else if (evt.key == 'v' || evt.key == 'V') {
 		if (evt.ctrlKey) clipboard.paste();
 	}
 

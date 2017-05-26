@@ -23,13 +23,20 @@ View.prototype.getMouse = function() {
 }
 
 View.prototype.resetMode = function() {
-	this.mode = 'normal';
+	this.setMode('normal');
 	this.setMessage("Mode: " + this.mode);
 };
 
-View.prototype.toggleMode = function() {
-	this.mode = (this.mode == 'normal') ? 'connect' : 'normal';
+View.prototype.toggleMode = function(mode) {
+	this.setMode((this.mode == 'normal') ? mode : 'normal');
 	this.setMessage("Mode: " + this.mode);
+};
+
+View.prototype.setMode = function(mode) {
+	nodes.forEach((node) => {
+		node.isActive = false;
+	});
+	this.mode = mode;
 };
 
 View.prototype.setMessage = function(message, duration) {
@@ -48,3 +55,11 @@ View.prototype.showMessage = function() {
 	fill("white");
 	text(this.message.text, (width - this.message.text.length * 8) / 2, 7);
 }
+
+View.prototype.showViewString = function() {
+	if (this.message.duration > 0)
+		return;
+	var viewString = (this.mode == 'new') ? '*' : this.mode.charAt(0).toUpperCase();
+	fill("black");
+	text(viewString, 10, 10);
+};
