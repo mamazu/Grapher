@@ -11,6 +11,7 @@ View.prototype.reset = function() {
 	this.gridSize = 20;
 	this.middle = true;
 	this.debug = true;
+	this.grid = true;
 	this.message = {
 		"text": "",
 		"duration": -1

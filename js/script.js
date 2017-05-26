@@ -6,6 +6,8 @@ var fc = 0;
 
 //User defined
 function grid() {
+	if (!view.grid)
+		return;
 	stroke("gray");
 	xZero = Math.round(width / view.gridSize / 2) * view.gridSize;
 	yZero = Math.round(height / view.gridSize / 2) * view.gridSize;
@@ -137,6 +139,8 @@ function keyPressed(evt) {
 		view.resetMode();
 	} else if (evt.key == "o" || evt.key == 'O') {
 		view.middle = !view.middle;
+	} else if (evt.key == "g" || evt.key == 'G') {
+		view.grid = !view.grid;
 	} else if (evt.key == 'd' || evt.key == 'D') {
 		view.debug = !view.debug;
 	} else if (evt.key == 'm' || evt.key == 'M') {
